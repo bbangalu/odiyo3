@@ -96,6 +96,7 @@ def iata_to_icao(iata_code):
         '4H': 'HGG',
         'GJ': 'CDC',
         'UO': 'HKE',
+        '9C': 'CQH'
     }
     return mapping.get(iata_code, iata_code)  # If not found, return the original IATA code
 
@@ -310,13 +311,17 @@ def mark_flights_in_air(departures, arrivals, selected_airport):
             arrival['flying'] = matching_departure['rmkKor']
             if arrival['flying'] == "출발":
                 arrival['flying2'] = "비행 중"
-                arrival['flight_link'] = f"https://www.flightradar24.com/{arrival['airFln']}"
+                airline_icao = iata_to_icao(arrival['airFln'][:2])
+                flight_icao_number = arrival['airFln'][2:]
+                arrival['flight_link'] = f"https://www.flightradar24.com/{airline_icao}{flight_icao_number}"
             else:
                 arrival['flying2'] = "출발 전"
 
         if not arrival['rmkKor'] and arrival['flying'] == "출발":
             arrival['flying2'] = "비행 중"
-            arrival['flight_link'] = f"https://www.flightradar24.com/{arrival['airFln']}"
+            airline_icao = iata_to_icao(arrival['airFln'][:2])
+            flight_icao_number = arrival['airFln'][2:]
+            arrival['flight_link'] = f"https://www.flightradar24.com/{airline_icao}{flight_icao_number}"
 
         elif not arrival['rmkKor']:
             arrival['flying2'] = "출발 전"
@@ -346,7 +351,10 @@ def mark_flights_in_air(departures, arrivals, selected_airport):
             departure['flying2'] = "비행 종료"
         elif departure['rmkKor'] == "출발" and departure['flying'] != "도착":
             departure['flying2'] = "비행 중"
-            departure['flight_link'] = f"https://www.flightradar24.com/{departure['airFln']}"
+            airline_icao = iata_to_icao(departure['airFln'][:2])
+            flight_icao_number = departure['airFln'][2:]
+            departure['flight_link'] = f"https://www.flightradar24.com/{airline_icao}{flight_icao_number}"
+
         elif departure['rmkKor'] != "출발":
             departure['flying2'] = "출발 전"
 
