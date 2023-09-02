@@ -169,12 +169,9 @@ def index():
     # 선택된 공항의 이름을 가져옵니다.
     selected_airport_name = next((airport["name"] for airport in AIRPORT_CODES if airport["code"] == selected_airport), "")
     # 현재 시간을 가져옵니다.
-<<<<<<< HEAD
-    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-=======
-    current_time = datetime.now(local_tz).strftime('%Y-%m-%d %H:%M:%S')
-    #current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S') 실행오류 없음
->>>>>>> 91f9866 (Initial commit)
+
+    #current_time = datetime.now(local_tz).strftime('%Y-%m-%d %H:%M:%S') # 실행오류 있음
+    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S') # 실행오류 없음
 
     return render_template('index.html', flight_type=flight_type, departures=departures, arrivals=arrivals,
                            AIRPORT_CODES=AIRPORT_CODES, selected_airport=selected_airport, AIRLINE_LOGOS=AIRLINE_LOGOS,
@@ -302,10 +299,6 @@ def mark_flights_in_air(departures, arrivals, selected_airport):
         origin_airport_code = get_airport_code_from_name(origin_airport_name)
 
         if origin_airport_code is None:  # 국제선 도착 정보
-<<<<<<< HEAD
-            arrival['airlineKorean'] = arrival.get('airlineEnglish', arrival['airlineKorean'])
-=======
->>>>>>> 91f9866 (Initial commit)
             continue
 
         all_departures_for_origin = all_flights_info[origin_airport_code][0]  # Only need departure info
@@ -317,13 +310,13 @@ def mark_flights_in_air(departures, arrivals, selected_airport):
             arrival['flying'] = matching_departure['rmkKor']
             if arrival['flying'] == "출발":
                 arrival['flying2'] = "비행 중"
-                arrival['flight_link'] = f"https://www.flightradar24.com/simple_index.php?lat=35.50&lon=127.32&flight={arrival['airFln']}"
+                arrival['flight_link'] = f"https://www.flightradar24.com/{arrival['airFln']}"
             else:
                 arrival['flying2'] = "출발 전"
 
         if not arrival['rmkKor'] and arrival['flying'] == "출발":
             arrival['flying2'] = "비행 중"
-            arrival['flight_link'] = f"https://www.flightradar24.com/simple_index.php?lat=35.50&lon=127.32&flight={arrival['airFln']}"
+            arrival['flight_link'] = f"https://www.flightradar24.com/{arrival['airFln']}"
 
         elif not arrival['rmkKor']:
             arrival['flying2'] = "출발 전"
@@ -353,7 +346,7 @@ def mark_flights_in_air(departures, arrivals, selected_airport):
             departure['flying2'] = "비행 종료"
         elif departure['rmkKor'] == "출발" and departure['flying'] != "도착":
             departure['flying2'] = "비행 중"
-            departure['flight_link'] = f"https://www.flightradar24.com/simple_index.php?lat=35.50&lon=127.32&flight={departure['airFln']}"
+            departure['flight_link'] = f"https://www.flightradar24.com/{departure['airFln']}"
         elif departure['rmkKor'] != "출발":
             departure['flying2'] = "출발 전"
 
