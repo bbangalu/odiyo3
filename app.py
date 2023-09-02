@@ -170,8 +170,8 @@ def index():
     selected_airport_name = next((airport["name"] for airport in AIRPORT_CODES if airport["code"] == selected_airport), "")
     # 현재 시간을 가져옵니다.
 
-    #current_time = datetime.now(local_tz).strftime('%Y-%m-%d %H:%M:%S') # 실행오류 있음
-    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S') # 실행오류 없음
+    current_time = datetime.now(local_tz).strftime('%Y-%m-%d %H:%M:%S') # 실행오류 있음
+    #current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S') # 실행오류 없음
 
     return render_template('index.html', flight_type=flight_type, departures=departures, arrivals=arrivals,
                            AIRPORT_CODES=AIRPORT_CODES, selected_airport=selected_airport, AIRLINE_LOGOS=AIRLINE_LOGOS,
