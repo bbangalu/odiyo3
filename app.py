@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 import requests
 import xml.etree.ElementTree as ET
 import logging
+import pytz
 from datetime import datetime
 import asyncio
 import aiohttp
@@ -168,7 +169,12 @@ def index():
     # 선택된 공항의 이름을 가져옵니다.
     selected_airport_name = next((airport["name"] for airport in AIRPORT_CODES if airport["code"] == selected_airport), "")
     # 현재 시간을 가져옵니다.
+<<<<<<< HEAD
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+=======
+    current_time = datetime.now(local_tz).strftime('%Y-%m-%d %H:%M:%S')
+    #current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S') 실행오류 없음
+>>>>>>> 91f9866 (Initial commit)
 
     return render_template('index.html', flight_type=flight_type, departures=departures, arrivals=arrivals,
                            AIRPORT_CODES=AIRPORT_CODES, selected_airport=selected_airport, AIRLINE_LOGOS=AIRLINE_LOGOS,
@@ -296,7 +302,10 @@ def mark_flights_in_air(departures, arrivals, selected_airport):
         origin_airport_code = get_airport_code_from_name(origin_airport_name)
 
         if origin_airport_code is None:  # 국제선 도착 정보
+<<<<<<< HEAD
             arrival['airlineKorean'] = arrival.get('airlineEnglish', arrival['airlineKorean'])
+=======
+>>>>>>> 91f9866 (Initial commit)
             continue
 
         all_departures_for_origin = all_flights_info[origin_airport_code][0]  # Only need departure info
