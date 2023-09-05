@@ -43,18 +43,18 @@
         </nav>
 
         <!-- Masthead-->
-<header class="masthead" style="background-image: url('{{ url_for('static', filename='assets/img/bg-signup.jpg') }}'); margin-bottom: 50px;">
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='assets/img/whitesky.jpg') }}'); margin-bottom: 50px;">
     <div class="container px-4 px-lg-5 d-flex h-100 align-items-lg-center justify-content-center">
-        <div class="d-flex justify-content-center" style="background: radial-gradient(circle, rgba(0, 0, 0, 0.8), transparent);"> <!-- margin-top: 45%; -->
+        <div class="d-flex justify-content-center" style="background: radial-gradient(circle, rgba(180, 206, 219, 0.8), transparent);"> <!-- margin-top: 45%; -->
             <div class="text-center">
                 <h1 class="mx-auto my-0 text-uppercase">ODIYO? </h1>
-                <h2 class="text-white-50 mx-auto mt-2 mb-5">실시간 항공기 위치를 확인하시려면<br>
-                    항공기 편명 옆에  <img src="{{ url_for('static', filename='assets/img/flying3.gif') }}" width="50" > 를 클릭하세요</h2>
+                <h2 class="text-black-50 mx-auto mt-2 mb-5" >실시간 항공기 위치를 확인하시려면<br>
+                    항공기 편명 옆에  <img src="{{ url_for('static', filename='assets/img/flying2.png') }}" width="50" style="background-color: transparent;" > 를 클릭하세요</h2>
 
                 <!-- Airport Selection inside Masthead -->
 <form action="/" method="post" id="airportForm">
     <div class="airport-selection mt-3" style="text-align: center;">
-        <label for="selectAirport" class="text-white-50">SELECT AN AIRPORT:</label>
+        <label for="selectAirport" class="text-black-50">SELECT AN AIRPORT:</label>
         <div style="display: flex; justify-content: center; align-items: center;">
             <select id="selectAirport" name="airport_code" class="form-control text-uppercase" style="background-color: rgba(0, 0, 0, 0.5); color: white; width: 200px;">
                 {% for airport in AIRPORT_CODES %}
@@ -67,7 +67,7 @@
     </div>
 
     <div class="airport-selection mt-3" style="text-align: center;">
-        <label for="selectFlightType" class="text-white-50">SELECT FLIGHT TYPE:</label>
+        <label for="selectFlightType" class="text-black-50">SELECT FLIGHT TYPE:</label>
         <div style="display: flex; justify-content: center; align-items: center;">
             <select id="selectFlightType" name="flight_type" class="form-control text-uppercase" style="background-color: rgba(0, 0, 0, 0.5); color: white; width: 200px;">
                 <option value="D" {% if flight_type == "D" %}selected{% endif %}>국내선</option>
@@ -95,9 +95,9 @@
                 <div class="d-flex justify-content-center">
                     <div class="text-center text-center-transparent-bg">
                     {% if flight_type == 'D' %}
-                        Arrivals(도착)
+                     <img src="{{ url_for('static', filename='assets/img/arrival.png') }}" width="70" style="background-color: transparent;" >   Arrivals(도착)
                     {% elif flight_type == 'I' %}
-                        Arrivals(도착)
+                     <img src="{{ url_for('static', filename='assets/img/arrival.png') }}" width="70" style="background-color: transparent;" >   Arrivals(도착)
                     {% endif %}
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                                     {% if flight.flying2 == "비행 중" %}
                                     {{ flight.airFln }}
                                     <a href="{{ flight.flight_link }}" target="_blank">
-                                        <img src="{{ url_for('static', filename='assets/img/flying3.gif') }}" alt="Flying" width="45" style="cursor: pointer;">
+                                        <img src="{{ url_for('static', filename='assets/img/flying2.png') }}" alt="Flying" width="45" style="cursor: pointer;">
                                     </a>
                                     {% else %}
                                     {{ flight.airFln }}
@@ -169,9 +169,9 @@
                 <div class="d-flex justify-content-center">
                     <div class="text-center text-center-transparent-bg">
                     {% if flight_type == 'D' %}
-                        Departures(출발)
+                     <img src="{{ url_for('static', filename='assets/img/departure.png') }}" width="70" style="background-color: transparent;" >   Departures(출발)
                     {% elif flight_type == 'I' %}
-                        Departures(출발)
+                     <img src="{{ url_for('static', filename='assets/img/departure.png') }}" width="70" style="background-color: transparent;" >   Departures(출발)
                     {% endif %}
                     </div>
                 </div>
@@ -202,7 +202,7 @@
                                 {% if flight.flying2 == "비행 중" %}
                                     {{ flight.airFln }}
                                 <a href="{{ flight.flight_link }}" target="_blank">
-                                    <img src="{{ url_for('static', filename='assets/img/flying3.gif') }}" alt="Flying" width="45" style="cursor: pointer;">
+                                    <img src="{{ url_for('static', filename='assets/img/flying2.png') }}" alt="Flying" width="45" style="cursor: pointer;">
                                 </a>
                                 {% else %}
                                     {{ flight.airFln }}
@@ -313,21 +313,26 @@ function updateFlightInfo() {
 
 document.addEventListener('DOMContentLoaded', function() {
     const options = {
-        searchable: true,     // 검색 기능 활성화
-        paging: false,        // 페이지 나누기 비활성화
-        perPage: 100,         // 한 페이지에 보일 행의 수 (옵션)
+        searchable: true,
+        paging: false,
+        perPage: 100,
         layout: "squish"
     };
 
     new simpleDatatables.DataTable(document.getElementById("departures-table"), options);
     new simpleDatatables.DataTable(document.getElementById("arrivals-table"), options);
+
+    updateFlightInfo();
 });
 
-function openFlightRadarInNewWindow(flightLink) {
-    window.open(flightLink, '_blank');
+function updateFlightInfo() {
+    const selectedAirport = document.getElementById('selectAirport').value;
+    fetch(`/fetch_info?airport_code=${selectedAirport}`)
+        .then(response => response.json())
+        .then(data => {
+            // ... (기존 코드 중 일부) ...
+        });
 }
-
-
 
 
 </script>

@@ -652,13 +652,15 @@ progress {
 
 }
 
+
+
 table thead th {
     position: sticky;
     top: 0;
     z-index: 10;
     background-color: #FFFFFF;  /* 흰색 배경을 70% 불투명도로 설정 */
-
 }
+
 
 @media (max-width: 480px) {  /* 예: 화면 너비가 480px 이하일 때 */
     body {
@@ -1774,7 +1776,17 @@ table thead th {
     overflow-y: auto;
     background-color: rgba(255, 255, 255, 0.7);
     text-align: center ;
-    margin-bottom: 30px;
+    margin-bottom: 30px;}
+
+#search-box {
+  padding: 0.5rem;
+  margin-top: 1.5rem;
+  margin-right: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+label {
+  margin-left: 15%;
 }
 
 /* 테이블 헤더 스타일 */
@@ -8278,7 +8290,7 @@ textarea.form-control-lg {
 
 .text-black-50 {
   --bs-text-opacity: 1;
-  color: rgba(0, 0, 0, 0.5) !important;
+  color: rgba(0, 0, 0, 1) !important;
 }
 
 .text-white-50 {
@@ -8312,8 +8324,9 @@ textarea.form-control-lg {
     background-color: rgba(255, 255, 255, 0.6);
     padding: 5px 10px;
     border-radius: 5px;
-    font-size: 25px;
+    font-size: 30px;
     color: darkblue;
+    font-weight : bold;
 }
 
 .bg-primary {
@@ -11061,12 +11074,12 @@ body {
   }
   #mainNav .navbar-brand {
     padding: 0.5rem 0;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(0, 0, 0, 0.8);
   }
   #mainNav .nav-link {
     transition: none;
     padding: 2rem 1.5rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(0, 0, 0, 0.8);
   }
   #mainNav .nav-link:hover {
     color: rgba(255, 255, 255, 0.75);
@@ -11148,7 +11161,7 @@ body {
   font-size: 2.5rem;
   line-height: 2.5rem;
   letter-spacing: 0.8rem;
-  background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+  background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(255, 255, 255, 0));
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
           background-clip: text;
